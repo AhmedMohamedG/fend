@@ -18,6 +18,9 @@
  * 
 */
 
+const pageSections = document.querySelectorAll('section');
+console.log(pageSections);
+
 
 /**
  * End Global Variables
@@ -25,7 +28,22 @@
  * 
 */
 
-
+const getnavData = ()=> {
+    const navData = []
+    for(let el of pageSections){
+        let elId = el.id;
+        const elChildren = el.children[0].childNodes;
+        for(let childEl of  elChildren ){
+            if(childEl.localName === 'h2'){
+                let elName = childEl.innerText;
+                navData.push({ elId, elName});
+                break; 
+            }
+        }
+    }
+    console.log(navData)
+    return navData;
+}
 
 /**
  * End Helper Functions
@@ -35,7 +53,30 @@
 
 // build the nav
 
+const naveBuild = () => {
+    
+    const navData = getnavData();
+    
+    const navList = document.getElementById('navbar__list');
 
+    
+    for(let el of navData){
+        const listEl = document.createElement('li');
+        const anchorEl = document.createElement('a');
+        anchorEl.innerText = el.elName;
+        anchorEl.href = `#${el.elId}`;
+        listEl.appendChild(anchorEl);
+        console.log(listEl)
+        navList.appendChild(listEl)
+    }
+    
+    
+}
+document.addEventListener('DOMContentLoaded', function () {
+    naveBuild();
+
+    
+})
 // Add class 'active' to section when near top of viewport
 
 
