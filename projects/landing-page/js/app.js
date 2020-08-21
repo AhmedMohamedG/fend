@@ -1,25 +1,9 @@
 /**
- * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
-*/
-
-/**
  * Define Global Variables
  * 
 */
-
+//Capturing all section elements in the page
 const pageSections = document.querySelectorAll('section');
-console.log(pageSections);
 
 
 /**
@@ -28,11 +12,19 @@ console.log(pageSections);
  * 
 */
 
+
+
+
 const getnavData = ()=> {
-    const navData = []
+    
+    const navData = [] // Array of objects of name and id 
+    
     for(let el of pageSections){
-        let elId = el.id;
+        
+        let elId = el.id; 
+        
         const elChildren = el.children[0].childNodes;
+        
         for(let childEl of  elChildren ){
             if(childEl.localName === 'h2'){
                 let elName = childEl.innerText;
@@ -41,7 +33,7 @@ const getnavData = ()=> {
             }
         }
     }
-    console.log(navData)
+    //returning the array that has the data for every section
     return navData;
 }
 
@@ -55,32 +47,49 @@ const getnavData = ()=> {
 
 const naveBuild = () => {
     
-    const navData = getnavData();
+    const navData = getnavData(); // storing the array of the sections data
     
     const navList = document.getElementById('navbar__list');
 
     
-    for(let el of navData){
+    for(let el of navData){ // creating nav elements and eppending them to the navbar
         const listEl = document.createElement('li');
         const anchorEl = document.createElement('a');
         anchorEl.innerText = el.elName;
         anchorEl.href = `#${el.elId}`;
+        anchorEl.classList.add('menu__link')
         listEl.appendChild(anchorEl);
-        console.log(listEl)
         navList.appendChild(listEl)
     }
     
     
 }
-document.addEventListener('DOMContentLoaded', function () {
-    naveBuild();
 
-    
-})
 // Add class 'active' to section when near top of viewport
 
 
-// Scroll to anchor ID using scrollTO event
+
+const handelClassActive = (entries, observer) => {
+    
+    // capture any elements with the actice class
+    const activeEls = document.querySelectorAll('.your-active-class');
+     
+        
+    for(let el of entries){
+
+        if( el.isIntersecting){
+            
+            for(let elem of activeEls){ // reomve the active calss from all elements
+                elem.classList.remove('your-active-class')
+               }
+            el.target.classList.add('your-active-class'); // adding the class to the active element
+        }
+
+    }
+        
+    
+}
+
 
 
 /**
@@ -96,3 +105,26 @@ document.addEventListener('DOMContentLoaded', function () {
 // Set sections as active
 
 
+//Using the Intersection Observer API to capture active elements
+let options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.7,
+}
+
+
+let observer = new IntersectionObserver(handelClassActive, options);
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    
+    naveBuild();
+   
+    for(let section of pageSections){// passing all the sectons to the observer functions
+       observer.observe(section)
+    }
+    
+    
+    
+    
+})

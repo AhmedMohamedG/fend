@@ -1,12 +1,10 @@
-# Front End Nanodegree Program
 
-Front End Nanodegree Content & Project Resources
 
 ## Table of Contents
 
 * [Projects](#projects)
-* [Courses](#courses)
-* [Style-Guide](#style-guide)
+* [Project Landing Page](#Project-Landing-Page)
+
 
 ## Projects
 
@@ -20,18 +18,18 @@ Note that projects that do not include associated starter code are not linked he
 4. [Evaluate A News Article with Natural Language Processing](https://github.com/udacity/fend/tree/refresh-2019/projects/evaluate-news-nlp)
 5. Capstone - Travel App
 
-## Courses
+## Project Landing Page
 
-The following is a list of the courses associated with the Front End Nanodegree.
+The project uses the following technologies
 
-* C1 - CSS, Website Layout, Website Components
-* C2 - JavaScript & The DOM
-* C3 - Web API's and Asynchronous Applications
-* C4 - Build Tools and Single Page Web Apps
-* C5 - Capstone
+1. Javascript
+2. CSS
+3. HTML
 
-## Style-Guide
+After cloning the project on your computer open 
 
-See below for the Udacity Style Guide used thoroughout the Front End Nanodegree.
+```
+projects/landing-page/index.html 
+```
+on your browser
 
-* [Nanodegree Style Guide](http://udacity.github.io/frontend-nanodegree-styleguide/)
